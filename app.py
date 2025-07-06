@@ -5,7 +5,7 @@ import pickle
 import os
 import datetime
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 # --- Global Variables & Constants ---
 model = None
@@ -80,8 +80,8 @@ def tentukan_kondisi_rem(keluhan_rem):
 def load_artifacts():
     global model, preprocessor_data
     try:
-        model_path = os.path.join(os.path.dirname(_file_), 'model_output', 'model.pkl')
-        preprocessor_path = os.path.join(os.path.dirname(_file_), 'model_output', 'preprocessing.pkl')
+        model_path = os.path.join(os.path.dirname(__file__), 'model_output', 'model.pkl')
+        preprocessor_path = os.path.join(os.path.dirname(__file__), 'model_output', 'preprocessing.pkl')
         
         with open(model_path, 'rb') as f:
             model = pickle.load(f)
@@ -207,6 +207,6 @@ def predict():
         traceback.print_exc()
         return f"Terjadi error: {e}", 400
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     # Model sudah dimuat di atas saat aplikasi dimulai
     app.run(debug=True)
